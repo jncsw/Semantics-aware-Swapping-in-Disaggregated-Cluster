@@ -76,7 +76,8 @@ void scan_array_sequential_overleap(){
 }
 
 
-
+// g++ swap_mmap_multi_thread.cpp -static -o swap_cgroup
+// ./swap_cgroup
 int main(){
 
     scan_array_sequential_overleap(); 
