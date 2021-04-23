@@ -64,15 +64,51 @@ void scan_array_sequential_overleap(){
 
 	printf("Writing %lu element to %lu bytes array \n", array_slice, size);
 	unsigned long * buf_ul_ptr = (unsigned long*)user_buff;
-	for( i = array_start  ; i < array_start + array_slice  ; i++ ){
+	int tmp;
+	printf("Start \n");
+	scanf("%d", &tmp);
+	printf("Stage 1 \n");
+	
+	for( i = array_start  ; i < array_start + array_slice/2  ; i++ ){
 		buf_ul_ptr[i] = i;  // the max value.
 	}
+	scanf("%d", &tmp);
+	printf("Stage 2 \n");
 
+	for( i = array_start+array_slice/2  ; i < array_start + array_slice  ; i++ ){
+		buf_ul_ptr[i] = i;  // the max value.
+	}
+	// Swap 500HEAD - mem 500 TAIL
+	
+	scanf("%d", &tmp);
+	printf("Stage 3 \n");
+	//long sum = 0;
+	for( i = array_start  ; i < array_start + array_slice/2  ; i++ ){
+		sum += buf_ul_ptr[i];  // the max value.
+	}
+	scanf("%d", &tmp);
+	printf("Stage 4 \n");
+	for( i = array_start+array_slice/2  ; i < array_start + array_slice*3/4  ; i++ ){
+		sum += buf_ul_ptr[i];  // the max value.
+	}
+// Swap 500HEAD - mem 500 TAIL
+	printf("Finished.");
+	// int tmp;
+	int tmp2;
+	scanf("%d", &tmp2);
+	printf("Value = %d\n",tmp2);
+	// scanf("start: %d\n", &tmp);
+	// pause();
+	// while(1);
+	for( i = array_start+array_slice/2  ; i < array_start + array_slice*3/4  ; i++ ){
+		printf("The first element on the 2nd page is: %lu \n", buf_ul_ptr[i] );
+	}
     i = array_start + (PAGE_SIZE / sizeof(unsigned long));
 	printf("Reading 1st element of the array on the 2nd page \n");
 
 	printf("The first element on the 2nd page is: %lu \n", buf_ul_ptr[i] );
-
+	scanf("%d", &tmp2);
+	printf("Finished....\n");
 }
 
 
