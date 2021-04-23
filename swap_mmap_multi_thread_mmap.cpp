@@ -96,18 +96,14 @@ char* commit_anon_memory(char* start_addr, unsigned long size, bool exec) {
 void scan_array_sequential_overleap(){
 
     char* user_buff;
-    unsigned long size = ARRAY_BYTE_SIZE;
 	size_t array_slice = ARRAY_BYTE_SIZE/sizeof(unsigned long); // the entire array
 	size_t array_start = 0; 	// scan from start
-	size_t i, sum;
+	size_t i=0, sum=0;
 
 
 	int type = 0x1;
 	unsigned long request_addr 	= ARRAY_START_ADDR; // start of RDMA meta space, 1GB not exceed the swap partitio size.
 	unsigned long size  		= ARRAY_BYTE_SIZE;	// 512MB, for unsigned long, length is 0x4,000,000
-	char* user_buff;
-	unsigned long i;
-	unsigned long sum = 0;
 	pthread_t threads[online_cores];
 	struct thread_args args[online_cores]; // pass value by reference, so keep a copy for each thread
 	int ret =0;
@@ -144,37 +140,41 @@ void scan_array_sequential_overleap(){
 	unsigned long * buf_ul_ptr = (unsigned long*)user_buff;
 	int tmp;
 	printf("Start \n");
-	scanf("%d", &tmp);
+	getchar();
+	// scanf("%d", &tmp);
 	printf("Stage 1 \n");
 	
 	for( i = array_start  ; i < array_start + array_slice/2  ; i++ ){
 		buf_ul_ptr[i] = i;  // the max value.
 	}
-	scanf("%d", &tmp);
+	getchar();
+	// scanf("%d", &tmp);
 	printf("Stage 2 \n");
 
 	for( i = array_start+array_slice/2  ; i < array_start + array_slice  ; i++ ){
 		buf_ul_ptr[i] = i;  // the max value.
 	}
 	// Swap 500HEAD - mem 500 TAIL
-	
-	scanf("%d", &tmp);
+	getchar();
+	// scanf("%d", &tmp);
 	printf("Stage 3 \n");
 	//long sum = 0;
 	for( i = array_start  ; i < array_start + array_slice/2  ; i++ ){
 		sum += buf_ul_ptr[i];  // the max value.
 	}
-	scanf("%d", &tmp);
+	getchar();
+	// scanf("%d", &tmp);
 	printf("Stage 4 \n");
 	for( i = array_start+array_slice/2  ; i < array_start + array_slice  ; i++ ){
 		sum += buf_ul_ptr[i];  // the max value.
 	}
 // Swap 500HEAD - mem 500 TAIL
-	printf("Finished.");
+	printf("Finished. Start to access one page.\n");
+	getchar();
 	// int tmp;
-	int tmp2;
-	scanf("%d", &tmp2);
-	printf("Value = %d\n",tmp2);
+	// int tmp2;
+	// scanf("%d", &tmp2);
+	// printf("Value = %d\n",tmp2);
 	// scanf("start: %d\n", &tmp);
 	// pause();
 	// while(1);
@@ -186,13 +186,16 @@ void scan_array_sequential_overleap(){
 	printf("Reading 1st element of the array on the 2nd page \n");
 
 	printf("The first element on the 2nd page is: %lu \n", buf_ul_ptr[i] );
-	scanf("%d", &tmp2);
-	printf("Next....\n");
+	// scanf("%d", &tmp2);
+
+	printf("Next....Start to update page...\n");
+	getchar();
 	for( i = array_start  ; i < array_start + (PAGE_SIZE / sizeof(unsigned long))*10  ; i++ ){
 		buf_ul_ptr[i] += 1;
 	}
-	scanf("%d", &tmp2);
+	// scanf("%d", &tmp2);
 	printf("Finished....\n");
+	getchar();
 }
 
 
