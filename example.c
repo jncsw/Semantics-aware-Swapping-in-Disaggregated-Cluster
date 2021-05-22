@@ -61,7 +61,7 @@ int main(int argc, char *argv[]) {
   printf(TAG_OK "Set PFN of address to PFN of target\n");
 
 
-  // get current pfn of "access"
+  // get current pfn of "address"
   address_pfn = ptedit_get_pfn(vm.pte);
   target_pfn = ptedit_get_pfn(vm2.pte);;
   // update to pfn of "target"
